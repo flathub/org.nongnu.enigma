@@ -24,7 +24,7 @@ index b3060273..cf6720a8 100644
  Icon=enigma
  Type=Application
 -Categories=Application;Game;PuzzleGame;
-+X-Categories=Application;Game;PuzzleGame;
++Categories=Game;LogicGame;
  
 -- 
 2.33.1
