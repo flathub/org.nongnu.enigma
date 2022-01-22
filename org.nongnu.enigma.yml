@@ -172,5 +172,4 @@ modules:
       - type: patch
         path: 0001-fix-appstream.patch
     post-install:
-      - install -d /app/share/icons/hicolor/128x128/apps/
-      - convert /app/share/icons/hicolor/48x48/apps/enigma.png -resize 128x128 /app/share/icons/hicolor/128x128/apps/enigma.png
+      - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
