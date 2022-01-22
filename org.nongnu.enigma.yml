@@ -80,9 +80,8 @@ modules:
         path: 0001-Invalid-pointer-access.patch
       - type: patch
         path: 0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
-      - type: file
-        path: org.nongnu.enigma.metainfo.xml
+      - type: patch
+        path: 0001-fix-appstream.patch
     post-install:
       - install -d /app/share/icons/hicolor/128x128/apps/
-      - install -Dm644 --target-directory=${FLATPAK_DEST}/share/metainfo ${FLATPAK_ID}.metainfo.xml
       - convert /app/share/icons/hicolor/48x48/apps/enigma.png -resize 128x128 /app/share/icons/hicolor/128x128/apps/enigma.png
