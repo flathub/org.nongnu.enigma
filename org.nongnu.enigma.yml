@@ -4,16 +4,14 @@ runtime-version: '21.08'
 sdk: org.freedesktop.Sdk
 command: enigma
 rename-icon: enigma
+rename-appdata-file: enigma.appdata.xml
 rename-desktop-file: enigma.desktop
 
 finish-args:
   - --persist=.enigma
-  # X11 access
-  - --share=ipc
-  - --socket=x11
-  # Needs to talk to pulseaudio
   - --socket=pulseaudio
-  # OpenGL redering
+  - --socket=wayland
+  - --socket=fallback-x11
   - --device=dri
 
 cleanup:
@@ -25,11 +23,95 @@ cleanup:
   - '*.a'
 
 modules:
+  - name: SDL2
+    rm-configure: true
+    config-opts:
+      - --disable-static
+    buildsystem: autotools
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+      - /share
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL
+        tag: release-2.0.20
+        commit: b424665e0899769b200231ba943353a5fee1b6b6
+    modules:
+      - name: libdecor
+        config-opts:
+          - -Ddemo=false
+        buildsystem: meson
+        cleanup:
+          - /include
+          - /lib/pkgconfig
+        sources:
+          - type: git
+            url: https://gitlab.gnome.org/jadahl/libdecor/
+            commit: a5e1d87dc80d8a71076f64d0fc33f38cc0fc205a
+
+  - name: SDL_ttf
+    buildsystem: autotools
+    rm-configure: true
+    config-opts:
+      - --disable-static
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+      - /share
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL_ttf
+        tag: release-2.0.18
+        commit: 3e702ed9bf400b0a72534f144b8bec46ee0416cb
+
+  - name: SDL2_mixer
+    buildsystem: autotools
+    rm-configure: true
+    config-opts:
+      - --disable-static
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+      - /share
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL_mixer
+        tag: release-2.0.4
+        commit: da75a58c19de9fedea62724a5f7770cbbe39adf9
+    
+  - name: SDL_image
+    rm-configure: true
+    config-opts:
+      - --disable-static
+    cleanup:
+      - /bin
+      - /include
+      - /lib/pkgconfig
+      - /share
+    sources:
+      - type: git
+        url: https://github.com/libsdl-org/SDL_image
+        tag: release-2.0.5
+        commit: ab2a9c602623193d61827ccd395302d92d90fc38
+      - type: script
+        dest-filename: autogen.sh
+        commands:
+          - "AUTOMAKE=\"automake --foreign\" autoreconf -vfi"
+
   - name: texi2html
     sources:
       - type: archive
         url: https://download.savannah.gnu.org/releases/texi2html/texi2html-5.0.tar.gz
         sha256: e60edd2a9b8399ca615c6e81e06fa61946ba2f2406c76cd63eb829c91d3a3d7d
+        x-checker-data:
+          type: anitya
+          project-id: 4957
+          stable-only: true
+          url-template: https://download.savannah.gnu.org/releases/texi2html/texi2html-$version.tar.gz
       - type: shell
         commands:
           - cp -p /usr/share/automake-*/config.{sub,guess} .
@@ -40,12 +122,19 @@ modules:
         url: https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/2.49.0/graphviz-2.49.0.tar.gz
         sha256: 17ade6189beade7c0784090f283c1f78f6b286ec38e3d2e927d3e42d625d0e8d
 
-  - name: Xerxes-C
+  - name: Xerces-C
     buildsystem: cmake-ninja
     sources:
-      - type: archive
-        url: https://dlcdn.apache.org//xerces/c/3/sources/xerces-c-3.2.3.tar.gz
-        sha256: fb96fc49b1fb892d1e64e53a6ada8accf6f0e6d30ce0937956ec68d39bd72c7e
+      - type: git
+        url: https://github.com/apache/xerces-c
+        tag: v3.2.3
+        commit: cf1912ac95d4147be08aef4e78f894a3919277d9
+
+  - name: libpng
+    sources:
+      - type: git
+        url: https://github.com/glennrp/libpng
+        tag: v1.6.35
 
   - name: imagemagick
     config-opts:
