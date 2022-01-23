@@ -130,12 +130,6 @@ modules:
         tag: v3.2.3
         commit: cf1912ac95d4147be08aef4e78f894a3919277d9
 
-  - name: libpng
-    sources:
-      - type: git
-        url: https://github.com/glennrp/libpng
-        tag: v1.6.35
-
   - name: imagemagick
     config-opts:
       - --enable-shared
