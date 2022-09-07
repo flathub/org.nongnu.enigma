@@ -64,8 +64,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/libsdl-org/SDL_ttf
-        tag: release-2.0.18
-        commit: 3e702ed9bf400b0a72534f144b8bec46ee0416cb
+        tag: release-2.20.1
+        commit: 0a652b598625d16ea7016665095cb1e9bce9ef4f
 
   - name: SDL2_mixer
     buildsystem: autotools
