@@ -36,8 +36,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/libsdl-org/SDL
-        tag: release-2.0.20
-        commit: b424665e0899769b200231ba943353a5fee1b6b6
+        tag: release-2.24.0
+        commit: 8c9beb0c873f6ca5efbd88f1ad2648bfc793b2ac
     modules:
       - name: libdecor
         config-opts:
