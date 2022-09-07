@@ -95,8 +95,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/libsdl-org/SDL_image
-        tag: release-2.0.5
-        commit: ab2a9c602623193d61827ccd395302d92d90fc38
+        tag: release-2.6.2
+        commit: a861543ab78f5d5e18e6af43964ce8df60cb30b3
       - type: script
         dest-filename: autogen.sh
         commands:
