@@ -149,8 +149,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/ImageMagick/ImageMagick.git
-        tag: "7.1.0-5"
-        commit: 74f8154136d2f631ca3e0421e6cf6c8dccd548f7
+        tag: "7.1.0-47"
+        commit: 47c6f10607fd1b1e6e9226cd9869479902b65821
 
   - name: Enigma-Game
     no-autogen: false
