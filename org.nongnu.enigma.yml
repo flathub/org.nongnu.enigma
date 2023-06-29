@@ -48,8 +48,9 @@ modules:
           - /lib/pkgconfig
         sources:
           - type: git
-            url: https://gitlab.gnome.org/jadahl/libdecor/
-            commit: a5e1d87dc80d8a71076f64d0fc33f38cc0fc205a
+            url: https://gitlab.freedesktop.org/libdecor/libdecor
+            tag: 0.1.1
+            commit: 4db201134ab51950a1c673d77d7c4f2f7c7b48fd
 
   - name: SDL_ttf
     buildsystem: autotools
