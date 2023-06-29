@@ -120,8 +120,8 @@ modules:
   - name: graphviz
     sources:
       - type: archive
-        url: https://gitlab.com/graphviz/graphviz/-/archive/5.0.1/graphviz-5.0.1.tar.gz
-        sha256: 6c704a3ffeaf2f7ae63f7d0da453cd624d93a9306a2e5dbda07e5ec38343d2b8
+        url: https://gitlab.com/graphviz/graphviz/-/archive/8.0.5/graphviz-8.0.5.tar.gz
+        sha256: dd06f45f5bbcb1c7cbc67adab5359da2cd4b40533dc7c7424b3fc0e998bbd6c9
 
   - name: Xerces-C
     buildsystem: cmake-ninja
