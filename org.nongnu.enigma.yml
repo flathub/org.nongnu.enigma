@@ -81,8 +81,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/libsdl-org/SDL_mixer
-        tag: release-2.6.2
-        commit: 75f318100d220e236c4fcc5a3d0c9ba33d064f3f
+        tag: release-2.6.3
+        commit: 6103316427a8479e5027e41ab9948bebfc1c3c19
     
   - name: SDL_image
     rm-configure: true
