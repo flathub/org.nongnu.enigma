@@ -23,34 +23,7 @@ cleanup:
   - '*.a'
 
 modules:
-  - name: SDL2
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    buildsystem: autotools
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL
-        tag: release-2.28.0
-        commit: ffa78e6bead23e2ba3adf8ec2367ff2218d4343c
-    modules:
-      - name: libdecor
-        config-opts:
-          - -Ddemo=false
-        buildsystem: meson
-        cleanup:
-          - /include
-          - /lib/pkgconfig
-        sources:
-          - type: git
-            url: https://gitlab.freedesktop.org/libdecor/libdecor
-            tag: 0.1.1
-            commit: 4db201134ab51950a1c673d77d7c4f2f7c7b48fd
+  - shared-modules/SDL2/SDL2-with-libdecor.json
 
   - name: SDL_ttf
     buildsystem: autotools
