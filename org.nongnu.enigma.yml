@@ -140,5 +140,7 @@ modules:
         path: 0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
       - type: patch
         path: 0001-fix-appstream.patch
+      - type: patch
+        path: 0001-Update-manifest.patch
     post-install:
       - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
