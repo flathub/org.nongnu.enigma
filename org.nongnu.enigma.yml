@@ -13,6 +13,7 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --device=dri
+  - --share=ipc
 
 cleanup:
   - '/include'
@@ -23,59 +24,6 @@ cleanup:
   - '*.a'
 
 modules:
-  - shared-modules/SDL2/SDL2-with-libdecor.json
-
-  - name: SDL_ttf
-    buildsystem: autotools
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_ttf
-        tag: release-2.20.2
-        commit: 89d1692fd8fe91a679bb943d377bfbd709b52c23
-
-  - name: SDL2_mixer
-    buildsystem: autotools
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_mixer
-        tag: release-2.6.3
-        commit: 6103316427a8479e5027e41ab9948bebfc1c3c19
-    
-  - name: SDL_image
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_image
-        tag: release-2.6.3
-        commit: d3c6d5963dbe438bcae0e2b6f3d7cfea23d02829
-      - type: script
-        dest-filename: autogen.sh
-        commands:
-          - "AUTOMAKE=\"automake --foreign\" autoreconf -vfi"
-
   - name: texi2html
     sources:
       - type: archive
@@ -139,5 +87,7 @@ modules:
         path: 0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
       - type: patch
         path: 0001-fix-appstream.patch
+      - type: patch
+        path: 0001-Update-manifest.patch
     post-install:
       - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
