@@ -1,6 +1,6 @@
 app-id: org.nongnu.enigma
 runtime: org.freedesktop.Platform
-runtime-version: '22.08'
+runtime-version: '23.08'
 sdk: org.freedesktop.Sdk
 command: enigma
 rename-icon: enigma
@@ -13,6 +13,7 @@ finish-args:
   - --socket=wayland
   - --socket=fallback-x11
   - --device=dri
+  - --share=ipc
 
 cleanup:
   - '/include'
@@ -23,85 +24,6 @@ cleanup:
   - '*.a'
 
 modules:
-  - name: SDL2
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    buildsystem: autotools
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL
-        tag: release-2.24.0
-        commit: 8c9beb0c873f6ca5efbd88f1ad2648bfc793b2ac
-    modules:
-      - name: libdecor
-        config-opts:
-          - -Ddemo=false
-        buildsystem: meson
-        cleanup:
-          - /include
-          - /lib/pkgconfig
-        sources:
-          - type: git
-            url: https://gitlab.gnome.org/jadahl/libdecor/
-            commit: a5e1d87dc80d8a71076f64d0fc33f38cc0fc205a
-
-  - name: SDL_ttf
-    buildsystem: autotools
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_ttf
-        tag: release-2.20.1
-        commit: 0a652b598625d16ea7016665095cb1e9bce9ef4f
-
-  - name: SDL2_mixer
-    buildsystem: autotools
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_mixer
-        tag: release-2.6.2
-        commit: 75f318100d220e236c4fcc5a3d0c9ba33d064f3f
-    
-  - name: SDL_image
-    rm-configure: true
-    config-opts:
-      - --disable-static
-    cleanup:
-      - /bin
-      - /include
-      - /lib/pkgconfig
-      - /share
-    sources:
-      - type: git
-        url: https://github.com/libsdl-org/SDL_image
-        tag: release-2.6.2
-        commit: a861543ab78f5d5e18e6af43964ce8df60cb30b3
-      - type: script
-        dest-filename: autogen.sh
-        commands:
-          - "AUTOMAKE=\"automake --foreign\" autoreconf -vfi"
-
   - name: texi2html
     sources:
       - type: archive
@@ -119,16 +41,16 @@ modules:
   - name: graphviz
     sources:
       - type: archive
-        url: https://gitlab.com/graphviz/graphviz/-/archive/5.0.1/graphviz-5.0.1.tar.gz
-        sha256: 6c704a3ffeaf2f7ae63f7d0da453cd624d93a9306a2e5dbda07e5ec38343d2b8
+        url: https://gitlab.com/graphviz/graphviz/-/archive/8.0.5/graphviz-8.0.5.tar.gz
+        sha256: dd06f45f5bbcb1c7cbc67adab5359da2cd4b40533dc7c7424b3fc0e998bbd6c9
 
   - name: Xerces-C
     buildsystem: cmake-ninja
     sources:
       - type: git
         url: https://github.com/apache/xerces-c
-        tag: v3.2.3
-        commit: cf1912ac95d4147be08aef4e78f894a3919277d9
+        tag: v3.2.4
+        commit: 5052c90b067dcc347d58822b450897d16e2c31e5
 
   - name: imagemagick
     config-opts:
@@ -149,8 +71,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/ImageMagick/ImageMagick.git
-        tag: "7.1.0-47"
-        commit: 47c6f10607fd1b1e6e9226cd9869479902b65821
+        tag: "7.1.1-12"
+        commit: a09d8dd5e3a92362cf70c184670b23163587e6f8
 
   - name: Enigma-Game
     no-autogen: false
@@ -165,5 +87,7 @@ modules:
         path: 0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
       - type: patch
         path: 0001-fix-appstream.patch
+      - type: patch
+        path: 0001-Update-manifest.patch
     post-install:
       - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
