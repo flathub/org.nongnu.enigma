@@ -1,6 +1,6 @@
 app-id: org.nongnu.enigma
 runtime: org.freedesktop.Platform
-runtime-version: '23.08'
+runtime-version: '24.08'
 sdk: org.freedesktop.Sdk
 command: enigma
 rename-icon: enigma
@@ -8,7 +8,7 @@ rename-appdata-file: enigma.appdata.xml
 rename-desktop-file: enigma.desktop
 
 finish-args:
-  - --persist=.enigma
+  - --filesystem=~/.enigma:create
   - --socket=pulseaudio
   - --socket=wayland
   - --socket=fallback-x11
@@ -41,16 +41,18 @@ modules:
   - name: graphviz
     sources:
       - type: archive
-        url: https://gitlab.com/graphviz/graphviz/-/archive/8.0.5/graphviz-8.0.5.tar.gz
-        sha256: dd06f45f5bbcb1c7cbc67adab5359da2cd4b40533dc7c7424b3fc0e998bbd6c9
+        url: https://gitlab.com/api/v4/projects/4207231/packages/generic/graphviz-releases/12.2.1/graphviz-12.2.1.tar.gz
+        sha256: 242bc18942eebda6db4039f108f387ec97856fc91ba47f21e89341c34b554df8
 
   - name: Xerces-C
     buildsystem: cmake-ninja
     sources:
       - type: git
         url: https://github.com/apache/xerces-c
-        tag: v3.2.4
-        commit: 5052c90b067dcc347d58822b450897d16e2c31e5
+        tag: v3.3.0
+        commit: 31b4b3a06105dcd607db9fda9d1883ad7e489bfe
+      - type: patch
+        path: 0001-fix-C-minimum-level.patch
 
   - name: imagemagick
     config-opts:
@@ -71,8 +73,8 @@ modules:
     sources:
       - type: git
         url: https://github.com/ImageMagick/ImageMagick.git
-        tag: "7.1.1-12"
-        commit: a09d8dd5e3a92362cf70c184670b23163587e6f8
+        tag: "7.1.1-47"
+        commit: 82572afc879b439cbf8c9c6f3a9ac7626adf98fb
 
   - name: Enigma-Game
     no-autogen: false
