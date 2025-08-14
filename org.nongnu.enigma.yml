@@ -8,7 +8,7 @@ rename-appdata-file: enigma.appdata.xml
 rename-desktop-file: enigma.desktop
 
 finish-args:
-  - --persist=.enigma
+  - --filesystem=~/.enigma:create
   - --socket=pulseaudio
   - --socket=wayland
   - --socket=fallback-x11
