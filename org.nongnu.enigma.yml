@@ -24,6 +24,9 @@ cleanup:
   - '*.a'
 
 modules:
+  - shared-modules/SDL2/SDL2_image.json
+  - shared-modules/SDL2/SDL2_ttf.json
+
   - name: texi2html
     sources:
       - type: archive
