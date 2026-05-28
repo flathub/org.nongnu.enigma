@@ -81,6 +81,9 @@ modules:
 
   - name: Enigma-Game
     no-autogen: false
+    build-options:
+      # A quick fix for: `fatal error: SDL_ttf.h: No such file or directory` error
+      cxxflags: -isystem /app/include/SDL2
     sources:
       - type: git
         url: https://github.com/Enigma-Game/Enigma.git
