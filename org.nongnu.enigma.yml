@@ -55,7 +55,7 @@ modules:
         tag: v3.3.0
         commit: 31b4b3a06105dcd607db9fda9d1883ad7e489bfe
       - type: patch
-        path: 0001-fix-C-minimum-level.patch
+        path: patches/0001-fix-C-minimum-level.patch
 
   - name: imagemagick
     config-opts:
@@ -92,10 +92,8 @@ modules:
         tag: "1.30"
         commit: 2d10fcaa984f017750f4bdcf44dcd07742db2111
       - type: patch
-        path: 0001-Invalid-pointer-access.patch
-      - type: patch
-        path: 0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
-      - type: patch
-        path: 0001-fix-appstream.patch
-      - type: patch
-        path: 0001-Update-manifest.patch
+        paths:
+          - patches/0001-Invalid-pointer-access.patch
+          - patches/0001-Fix-.desktop-to-success-the-desktop-filde-validate.patch
+          - patches/0001-fix-appstream.patch
+          - patches/0001-Update-manifest.patch
