@@ -16,11 +16,11 @@ finish-args:
   - --share=ipc
 
 cleanup:
-  - '/include'
-  - '/share/doc/xerces-c'
-  - '/share/doc/ImageMagick-7'
-  - '/share/gaphviz/pdf'
-  - '/usr/include'
+  - /include
+  - /share/doc/xerces-c
+  - /share/doc/ImageMagick-7
+  - /share/gaphviz/pdf
+  - /usr/include
   - '*.a'
 
 modules:
@@ -76,7 +76,7 @@ modules:
     sources:
       - type: git
         url: https://github.com/ImageMagick/ImageMagick.git
-        tag: "7.1.1-47"
+        tag: 7.1.1-47
         commit: 82572afc879b439cbf8c9c6f3a9ac7626adf98fb
 
   - name: Enigma-Game
@@ -84,6 +84,8 @@ modules:
     build-options:
       # A quick fix for: `fatal error: SDL_ttf.h: No such file or directory` error
       cxxflags: -isystem /app/include/SDL2
+    post-install:
+      - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
     sources:
       - type: git
         url: https://github.com/Enigma-Game/Enigma.git
@@ -97,5 +99,3 @@ modules:
         path: 0001-fix-appstream.patch
       - type: patch
         path: 0001-Update-manifest.patch
-    post-install:
-      - install -Dm644 /run/build/Enigma-Game/data/gfx/enigma_marble.png ${FLATPAK_DEST}/share/icons/hicolor/128x128/apps/enigma.png
